@@ -4,9 +4,9 @@
       <div class="flex items-center justify-between py-6">
         <nav>
           <ul class="flex justify-end space-x-6">
-            <li><router-link to="/">Inicio</router-link></li>
-            <li><router-link to="/about">Acerca de</router-link></li>
-            <li><router-link to="/contact">Contacto</router-link></li>
+            <li><a href="../App.vue">Inicio</a></li>
+            <li><a href="./Post.vue">Acerca de</a></li>
+            <li><a href="./PostList.vue">Contacto</a></li>
             <li><Filter :tags="tags" /></li>
           </ul>
         </nav>
@@ -16,37 +16,28 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
 import Filter from "./Filter.vue";
+import api from "../api.js"; // Import the api module
 
 export default {
   name: "Header",
   components: {
-    Filter,
+    Filter
   },
-  setup() {
-    const tags = ref([])
-
-    onMounted(async () => {
-      try {
-        const response = await fetch(
-          `/ghost/api/v3/content/tags/?key=${process.env.VUE_APP_GHOST_API_KEY}&limit=all`
-        )
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const json = await response.json()
-        tags.value = json.tags.map((tag) => ({ value: tag.slug, label: tag.name }))
-      } catch (error) {
-        console.error("Failed to fetch tags:", error)
-      }
-    })
-
-    return { tags }
+  data() {
+    return {
+      tags: []
+    };
+  },
+  async mounted() {
+    try {
+      this.tags = await api.fetchTags(); // Use the fetchTags function from the api module
+    } catch (error) {
+      console.error("Failed to fetch tags:", error);
+    }
   }
-}
+};
 </script>
-
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
