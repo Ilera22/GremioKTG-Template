@@ -7,9 +7,12 @@ async function fetchTags() {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
   const json = await response.json();
-  return json.tags.map((tag) => ({ value: tag.slug, label: tag.name }));
+  return json.tags.map(tag => ({ value: tag.slug, label: tag.name }));
 }
 
-export default {
-  fetchTags,
+const api = {
+  name: "api",
+  fetchTags
 };
+
+export default api;
