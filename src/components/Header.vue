@@ -4,9 +4,9 @@
       <div class="flex items-center justify-between py-6">
         <nav>
           <ul class="flex justify-end space-x-6">
-            <li><a href="../App.vue">Inicio</a></li>
-            <li><a href="./Post.vue">Acerca de</a></li>
-            <li><a href="./PostList.vue">Contacto</a></li>
+            <li><router-link to="/">Inicio</router-link></li>
+            <li><router-link to="/about">Acerca de</router-link></li>
+            <li><router-link to="/contact">Contacto</router-link></li>
             <li><Filter :tags="tags" /></li>
           </ul>
         </nav>
@@ -17,12 +17,12 @@
 
 <script>
 import Filter from "./Filter.vue";
-import api from "../api.js"; // Import the api module
+import api from "./api.js"; // Import the api module
 
 export default {
   name: "Header",
   components: {
-    Filter,
+    Filter
   },
   data() {
     return {
@@ -59,6 +59,7 @@ li {
   margin: 0 10px;
   text-align: center;
 }
+
 router-link {
   color: rgb(255, 255, 255);
   text-decoration: none;
