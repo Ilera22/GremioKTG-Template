@@ -4,9 +4,9 @@
       <div class="flex items-center justify-between py-6">
         <nav>
           <ul class="flex justify-end space-x-6">
-            <li><a href="../App.vue">Inicio</a></li>
-            <li><a href="./Post.vue">Acerca de</a></li>
-            <li><a href="./PostList.vue">Contacto</a></li>
+            <li><router-link to="/">Inicio</router-link></li>
+            <li><router-link to="/about">Acerca de</router-link></li>
+            <li><router-link to="/contact">Contacto</router-link></li>
             <li><Filter :tags="tags" /></li>
           </ul>
         </nav>
@@ -17,32 +17,27 @@
 
 <script>
 import Filter from "./Filter.vue";
+import api from "./api.js"; // Import the api module
 
 export default {
   name: "Header",
   components: {
-    Filter,
+    Filter
   },
   data() {
     return {
-      // Aquí puedes definir cualquier data que necesites en tu header
-      tags: [],
+      tags: []
     };
   },
   async mounted() {
-    const response = await fetch(
-      "/ghost/api/v3/content/tags/?key=1234567890123456789012345678901234567890&limit=all"
-    );
-    const json = await response.json();
-    this.tags = json.tags.map((tag) => ({ value: tag.slug, label: tag.name }));
-  },
-  methods: {
-    // Aquí puedes definir cualquier método que necesites en tu header
-  },
+    try {
+      this.tags = await api.fetchTags(); // Use the fetchTags function from the api module
+    } catch (error) {
+      console.error("Failed to fetch tags:", error);
+    }
+  }
 };
 </script>
-
-
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -64,21 +59,19 @@ li {
   margin: 0 10px;
   text-align: center;
 }
-a {
+
+router-link {
   color: rgb(255, 255, 255);
   text-decoration: none;
   transition: background-color 0.3s ease;
   padding: 0.5rem;
 }
 
-a:hover {
+router-link:hover {
   background-color: #8a4baf;
 }
 
-a:active {
+router-link:active {
   transform: translateY(2px);
 }
 </style>
-
-
-
