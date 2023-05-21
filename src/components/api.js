@@ -10,9 +10,6 @@ async function fetchTags() {
   return json.tags.map(tag => ({ value: tag.slug, label: tag.name }));
 }
 
-const api = {
-  name: "api",
+export default {
   fetchTags
 };
-
-export default api;

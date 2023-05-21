@@ -22,7 +22,7 @@ import api from "../api.js"; // Import the api module
 export default {
   name: "Header",
   components: {
-    Filter
+    Filter,
   },
   data() {
     return {
