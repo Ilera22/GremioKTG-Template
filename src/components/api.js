@@ -1,4 +1,4 @@
-const API_URL = "/ghost/api/v3/content";
+const API_URL = "https://gremioktg.com/ghost/api/v3/content";
 const API_KEY = process.env.VUE_APP_GHOST_API_KEY;
 
 async function fetchTags() {
