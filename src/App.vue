@@ -1,3 +1,4 @@
+APP.VUE
 <template>
   <div>
     <Header />
@@ -5,6 +6,7 @@
     <PostList />
   </div>
 </template>
+
 
 <script>
 import Header from "./components/Header.vue";
@@ -18,6 +20,7 @@ export default {
 };
 </script>
 
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -27,3 +30,5 @@ export default {
   color: #0080ff;
 }
 </style>
+
+
